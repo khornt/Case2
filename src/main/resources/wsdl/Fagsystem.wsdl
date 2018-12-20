@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions targetNamespace="urn:com:horntvedt:case2:bestill:v1"
+             name="Attestmottak" xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:tns="urn:com:horntvedt:case2:bestill:v1"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+
+    <xsd:schema>
+      <xsd:import namespace="urn:com:horntvedt:case2:bestill:v1"
+                  schemaLocation="../xsd/Bestilling.xsd"/>
+    </xsd:schema>
+
+
+  </types>
+  <message name="bestillProdukt">
+    <part name="bestillRequest" element="tns:Bestilling"/>
+  </message>
+
+  <message name="bestillRespons">
+    <part name="bestillRespons" element="tns:BestillingRespons"/>
+  </message>
+
+  <portType name="RegistrerKunde">
+    <operation name="registrerKunde">
+      <input message="tns:bestillProdukt"/>
+      <output message="tns:bestillRespons"/>
+    </operation>
+  </portType>
+
+  <binding name="RegistrerKundeBinding" type="tns:RegistrerKunde">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="registrerKunde">
+      <soap:operation
+        soapAction="urn:com:horntvedt:case2:bestill:v1/registrerKunde"/>
+      <input>
+        <soap:body use="literal" parts="bestillRequest"/>
+      </input>
+      <output>
+        <soap:body use="literal" parts="bestillRespons"/>
+      </output>
+      <fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+
+  <service name="RegistrerKunde">
+    <port name="RegistrerKunde" binding="tns:RegistrerKundeBinding">
+      <soap:address location="http://localhost:8080/jabbajabba/v1"/>
+    </port>
+  </service>
+</definitions>
+
