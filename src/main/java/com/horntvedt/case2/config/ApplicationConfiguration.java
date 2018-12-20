@@ -23,6 +23,4 @@ public class ApplicationConfiguration {
     public ServletRegistrationBean soapDispatchServlet() {
         return new ServletRegistrationBean(new CXFServlet(), "/soap-api/*");
     }
-
-
 }

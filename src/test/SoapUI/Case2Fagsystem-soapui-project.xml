@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="15566a67-362e-46f3-840f-e03066745b61" activeEnvironment="Default" name="Case2Fagsystem" resourceRoot="" soapui-version="5.4.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="7a68afc7-e6bc-4544-8a8e-70eac3c05682" wsaVersion="NONE" name="fagsystemSoapBinding" type="wsdl" bindingName="{urn:com:horntvedt:case2:bestill:v1}fagsystemSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8090/soap-api/fagsystem/v1/fagsystem?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8090/soap-api/fagsystem/v1/fagsystem?wsdl"><con:part><con:url>http://localhost:8090/soap-api/fagsystem/v1/fagsystem?wsdl</con:url><con:content><![CDATA[<definitions name="Attestmottak" targetNamespace="urn:com:horntvedt:case2:bestill:v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com:horntvedt:case2:bestill:v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:com:horntvedt:case2:bestill:v1" schemaLocation="http://localhost:8090/soap-api/fagsystem/v1/fagsystem?xsd=../xsd/Bestilling.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="bestillRespons">
+    <part element="tns:BestillingRespons" name="bestillRespons"></part>
+  </message>
+  <message name="bestillProdukt">
+    <part element="tns:Bestilling" name="bestillRequest"></part>
+  </message>
+  <portType name="fagsystem">
+    <operation name="registrerKunde">
+      <input message="tns:bestillProdukt"></input>
+      <output message="tns:bestillRespons"></output>
+    </operation>
+    <operation name="registrerProdukt">
+      <input message="tns:bestillProdukt"></input>
+      <output message="tns:bestillRespons"></output>
+    </operation>
+  </portType>
+  <binding name="fagsystemSoapBinding" type="tns:fagsystem">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="registrerKunde">
+      <soap:operation soapAction="urn:com:horntvedt:case2:bestill:v1/registrerKunde"/>
+      <input>
+        <soap:body parts="bestillRequest" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="bestillRespons" use="literal"/>
+      </output>
+      <fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="registrerProdukt">
+      <soap:operation soapAction="urn:com:horntvedt:case2:bestill:v1/registrerProdukt"/>
+      <input>
+        <soap:body parts="bestillRequest" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="bestillRespons" use="literal"/>
+      </output>
+      <fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="fagsystem">
+    <port binding="tns:fagsystemSoapBinding" name="fagsystemSoap">
+      <soap:address location="http://localhost:8090/soap-api/fagsystem/v1/fagsystem"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8090/soap-api/fagsystem/v1/fagsystem?xsd=../xsd/Bestilling.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:com:horntvedt:case2:bestill:v1" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com:horntvedt:case2:bestill:v1" xmlns:felles="urn:com:horntvedt:case2:bestill:aktor:v1">
+  <xs:import namespace="urn:com:horntvedt:case2:bestill:aktor:v1" schemaLocation="http://localhost:8090/soap-api/fagsystem/v1/fagsystem?xsd=../xsd/Aktor.xsd"/>
+  <xs:element name="Bestilling" type="tns:Bestilling"/>
+  <xs:element name="BestillingRespons" type="tns:BestillRespons"/>
+  <xs:complexType name="BestillRespons">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="svar" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Bestilling">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="bestillinginfo" type="felles:Aktor"/>
+      <!--enum her-->
+      <xs:element maxOccurs="1" minOccurs="1" name="forsikringstype" type="xs:string"/>
+      <!--må bli noe-->
+      <xs:element maxOccurs="1" minOccurs="1" name="annetfelt" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8090/soap-api/fagsystem/v1/fagsystem?xsd=../xsd/Aktor.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:com:horntvedt:case2:bestill:aktor:v1" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com:horntvedt:case2:bestill:aktor:v1">
+  <xs:complexType name="Aktor">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="foedselsnummer" type="tns:Foedselsnummer"/>
+        <xs:element name="organisasjonsnummer" type="tns:Organisasjonsnummer"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Organisasjonsnummer">
+    <xs:restriction base="xs:string">
+      <xs:length value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Foedselsnummer">
+    <xs:restriction base="xs:string">
+      <xs:length value="11"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8090/soap-api/fagsystem/v1/fagsystem</con:endpoint></con:endpoints><con:operation id="b9e5707a-cff1-4730-8b64-9fc6b9fbbbff" isOneWay="false" action="urn:com:horntvedt:case2:bestill:v1/registrerKunde" name="registrerKunde" bindingOperationName="registrerKunde" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fa0be02c-49a0-4ba8-8bd3-e70176ecbcb8" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8090/soap-api/fagsystem/v1/fagsystem</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:com:horntvedt:case2:bestill:v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:Bestilling>
+         <bestillinginfo>            
+            <foedselsnummer>12345698789</foedselsnummer>
+         </bestillinginfo>
+         <forsikringstype>BIL</forsikringstype>
+         <annetfelt>JADDAJADA</annetfelt>
+      </urn:Bestilling>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:com:horntvedt:case2:bestill:v1/registrerKunde"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="6647d536-12c8-46be-8415-a75c2dd04dd9" isOneWay="false" action="urn:com:horntvedt:case2:bestill:v1/registrerProdukt" name="registrerProdukt" bindingOperationName="registrerProdukt" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8f80f439-1650-41b8-b876-423e3bf2da77" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8090/soap-api/fagsystem/v1/fagsystem</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:com:horntvedt:case2:bestill:v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:Bestilling>
+         <bestillinginfo>            
+            <foedselsnummer>12345698789</foedselsnummer>
+         </bestillinginfo>
+         <forsikringstype>BIL</forsikringstype>
+         <annetfelt>JADDAJADA</annetfelt>
+      </urn:Bestilling>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:com:horntvedt:case2:bestill:v1/registrerProdukt"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

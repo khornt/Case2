@@ -1,5 +1,6 @@
 package com.horntvedt.case2.camel;
 
+import com.horntvedt.case2.camel.translator.MottaForespoersel;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.Processor;
@@ -13,28 +14,23 @@ public class RegistrerKundeSoapApi extends RouteBuilder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrerKundeSoapApi.class);
 
-    private static final String lagProviderEndpoint() {
+    private static final String lagProviderEndpointKunde() {
 
-        return "cxf:/registrerKunde"
+        return "cxf:/fagsystem"
             + "?wsdlURL=wsdl/Fagsystem.wsdl"
             + "&address=/fagsystem/v1"
             + "&dataFormat=PAYLOAD"
-            + "&serviceName={urn:com:horntvedt:case2:bestill:v1}RegistrerKunde"
+            + "&serviceName={urn:com:horntvedt:case2:bestill:v1}fagsystem"
             + "&skipFaultLogging=false"
             + "&allowStreaming=false";
     }
 
+
     public void configure() throws Exception {
 
-        from(lagProviderEndpoint()).routeId("Registrer Kunde")
-            .log(LoggingLevel.INFO, LOGGER, "Mottatt registrer kunde forespørsel")
-            .process(new Processor() {
-                @Override
-                public void process(Exchange exchange) throws Exception {
-                    String s = exchange.getIn().getBody(String.class);
-                }
-            })
-            .end();
+        from(lagProviderEndpointKunde()).routeId("Registrer Kunde")
+                .log(LoggingLevel.INFO, LOGGER, "Mottatt forespørsel")
+                .process(new MottaForespoersel())
+                .end();
     }
-
 }

@@ -20,15 +20,21 @@
     <part name="bestillRespons" element="tns:BestillingRespons"/>
   </message>
 
-  <portType name="RegistrerKunde">
+  <portType name="fagsystem">
     <operation name="registrerKunde">
+      <input message="tns:bestillProdukt"/>
+      <output message="tns:bestillRespons"/>
+    </operation>
+    <operation name="registrerProdukt">
       <input message="tns:bestillProdukt"/>
       <output message="tns:bestillRespons"/>
     </operation>
   </portType>
 
-  <binding name="RegistrerKundeBinding" type="tns:RegistrerKunde">
+    <binding name="fagsystemSoapBinding" type="tns:fagsystem">
+
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
     <operation name="registrerKunde">
       <soap:operation
         soapAction="urn:com:horntvedt:case2:bestill:v1/registrerKunde"/>
@@ -42,12 +48,31 @@
         <soap:fault name="fault" use="literal"/>
       </fault>
     </operation>
+
+    <operation name="registrerProdukt">
+      <soap:operation
+              soapAction="urn:com:horntvedt:case2:bestill:v1/registrerProdukt"/>
+      <input>
+        <soap:body use="literal" parts="bestillRequest"/>
+      </input>
+      <output>
+        <soap:body use="literal" parts="bestillRespons"/>
+      </output>
+      <fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </fault>
+    </operation>
+
+
   </binding>
 
-  <service name="RegistrerKunde">
-    <port name="RegistrerKunde" binding="tns:RegistrerKundeBinding">
+
+  <service name="fagsystem">
+    <port name="fagsystemSoap" binding="tns:fagsystemSoapBinding">
       <soap:address location="http://localhost:8080/jabbajabba/v1"/>
     </port>
   </service>
+
+
 </definitions>
 
