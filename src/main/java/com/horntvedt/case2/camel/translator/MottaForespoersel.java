@@ -1,9 +1,19 @@
 package com.horntvedt.case2.camel.translator;
 
+import java.io.StringWriter;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.horntvedt.case2.fagsystem.kunde.v1.KundeRespons;
+import com.horntvedt.case2.fagsystem.kunde.v1.ObjectFactory;
+import com.horntvedt.case2.fagsystem.produkt.v1.ProduktRespons;
 
 public class MottaForespoersel implements Processor {
 
@@ -18,8 +28,30 @@ public class MottaForespoersel implements Processor {
 
         if (ACTION_KUNDE.equals(action)) {
             LOGGER.info("Mottatt registrer kunde forespoersel");
+
+            KundeRespons kundeRespons = new KundeRespons();
+            kundeRespons.setSvar("Ok");
+
+
+            JAXBContext context = JAXBContext.newInstance(KundeRespons.class);
+            Marshaller m = context.createMarshaller();
+
+            ObjectFactory objectFactory = new ObjectFactory();
+            JAXBElement<KundeRespons> je = objectFactory.createKundeRespons(kundeRespons);
+
+            StringWriter sw = new StringWriter();
+            m.marshal(je, sw);
+
+            exchange.getOut().setBody(sw.toString());
+
+
         } else if (ACTION_PRODUKT.equals(action)) {
             LOGGER.info("Mottatt registrer produkt forespoersel");
+
+            ProduktRespons produktRespons = new ProduktRespons();
+            produktRespons.setSvar("ok");
+            exchange.getOut().setBody(produktRespons);
+
         }
     }
 }

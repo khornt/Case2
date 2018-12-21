@@ -20,7 +20,7 @@ public class RegistrerKundeSoapApi extends RouteBuilder {
             + "?wsdlURL=wsdl/Fagsystem.wsdl"
             + "&address=/fagsystem/v1"
             + "&dataFormat=PAYLOAD"
-            + "&serviceName={urn:com:horntvedt:case2:bestill:v1}fagsystem"
+            + "&serviceName={urn:com:horntvedt:case2:fagsystem:v1}fagsystem"
             + "&skipFaultLogging=false"
             + "&allowStreaming=false";
     }
