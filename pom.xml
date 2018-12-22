@@ -11,7 +11,7 @@
 
   <groupId>com.horntvedt.case2</groupId>
   <artifactId>fagsystem</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.9</version>
   <name>fag-application</name>
   <description>project-description</description>
   <packaging>jar</packaging>

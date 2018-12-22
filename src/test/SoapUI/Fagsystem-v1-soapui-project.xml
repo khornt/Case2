@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="0a1751f6-501e-4c85-9362-3179712c4f5d" activeEnvironment="Default" name="Fagsystem_v1" resourceRoot="" soapui-version="5.4.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="8bb71c16-c77a-4152-9141-34f6a672c654" wsaVersion="NONE" name="fagsystemSoapBinding" type="wsdl" bindingName="{urn:com:horntvedt:case2:fagsystem:v1}fagsystemSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8090/soap-api/fagsystem/v1/fagsystem?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8090/soap-api/fagsystem/v1/fagsystem?wsdl"><con:part><con:url>http://localhost:8090/soap-api/fagsystem/v1/fagsystem?wsdl</con:url><con:content><![CDATA[<definitions name="Fagsystem" targetNamespace="urn:com:horntvedt:case2:fagsystem:v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com:horntvedt:case2:fagsystem:v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:prd="urn:com:horntvedt:case2:fagsystem:produkt:v1" xmlns:knd="urn:com:horntvedt:case2:fagsystem:kunde:v1" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:com:horntvedt:case2:fagsystem:kunde:v1" schemaLocation="http://localhost:8090/soap-api/fagsystem/v1/fagsystem?xsd=../xsd/Kunde.xsd"/>
+    </xsd:schema>
+    <xsd:schema>
+      <xsd:import namespace="urn:com:horntvedt:case2:fagsystem:produkt:v1" schemaLocation="http://localhost:8090/soap-api/fagsystem/v1/fagsystem?xsd=../xsd/Produkt.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="registrerProduktForespoersel">
+    <part element="prd:produktForespoersel" name="registrerProduktForespoersel"></part>
+  </message>
+  <message name="registerProduktRespons">
+    <part element="prd:produktRespons" name="registerProduktRespons"></part>
+  </message>
+  <message name="registrerKundeRespons">
+    <part element="knd:kundeRespons" name="registerKundeRespons"></part>
+  </message>
+  <message name="registrerKundeForespoersel">
+    <part element="knd:kundeForespoersel" name="registrerKundeForespoersel"></part>
+  </message>
+  <portType name="fagsystem">
+    <operation name="registrerKunde">
+      <input message="tns:registrerKundeForespoersel"></input>
+      <output message="tns:registrerKundeRespons"></output>
+    </operation>
+    <operation name="registrerProdukt">
+      <input message="tns:registrerProduktForespoersel"></input>
+      <output message="tns:registerProduktRespons"></output>
+    </operation>
+  </portType>
+  <binding name="fagsystemSoapBinding" type="tns:fagsystem">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="registrerKunde">
+      <soap:operation soapAction="urn:com:horntvedt:case2:fagsystem:kunde:v1/registrerKunde"/>
+      <input>
+        <soap:body parts="registrerKundeForespoersel" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="registerKundeRespons" use="literal"/>
+      </output>
+    </operation>
+    <operation name="registrerProdukt">
+      <soap:operation soapAction="urn:com:horntvedt:case2:fagsystem:produkt:v1/registrerProdukt"/>
+      <input>
+        <soap:body parts="registrerProduktForespoersel" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="registerProduktRespons" use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="fagsystem">
+    <port binding="tns:fagsystemSoapBinding" name="fagsystemSoap">
+      <soap:address location="http://localhost:8090/soap-api/fagsystem/v1/fagsystem"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8090/soap-api/fagsystem/v1/fagsystem?xsd=../xsd/Kunde.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:com:horntvedt:case2:fagsystem:kunde:v1" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com:horntvedt:case2:fagsystem:kunde:v1" xmlns:felles="urn:com:horntvedt:case2:fagsystem:aktor:v1">
+  <xs:import namespace="urn:com:horntvedt:case2:fagsystem:aktor:v1" schemaLocation="http://localhost:8090/soap-api/fagsystem/v1/fagsystem?xsd=../xsd/Aktor.xsd"/>
+  <xs:element name="kundeForespoersel" type="tns:KundeForespoersel"/>
+  <xs:element name="kundeRespons" type="tns:KundeRespons"/>
+  <xs:complexType name="KundeRespons">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="kundeId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="KundeForespoersel">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="kundeInfo" type="felles:Aktor"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8090/soap-api/fagsystem/v1/fagsystem?xsd=../xsd/Aktor.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:com:horntvedt:case2:fagsystem:aktor:v1" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com:horntvedt:case2:fagsystem:aktor:v1">
+  <xs:complexType name="Aktor">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="foedselsnummer" type="tns:Foedselsnummer"/>
+        <xs:element name="organisasjonsnummer" type="tns:Organisasjonsnummer"/>
+      </xs:choice>
+      <xs:element name="fornavn" type="xs:string"/>
+      <xs:element minOccurs="0" name="mellomnavn" type="xs:string"/>
+      <xs:element name="etternavn" type="xs:string"/>
+      <xs:element name="adresselinje1" type="xs:string"/>
+      <xs:element name="adresselinje2" type="xs:string"/>
+      <xs:element name="postnummer" type="xs:string"/>
+      <xs:element name="poststed" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Organisasjonsnummer">
+    <xs:restriction base="xs:string">
+      <xs:length value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Foedselsnummer">
+    <xs:restriction base="xs:string">
+      <xs:length value="11"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8090/soap-api/fagsystem/v1/fagsystem?xsd=../xsd/Produkt.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:com:horntvedt:case2:fagsystem:produkt:v1" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com:horntvedt:case2:fagsystem:produkt:v1">
+  <xs:element name="produktForespoersel" type="tns:ProduktForespoersel"/>
+  <xs:element name="produktRespons" type="tns:ProduktRespons"/>
+  <xs:complexType name="ProduktRespons">
+    <xs:sequence>
+      <!--mulig å bestille flere produkter initielt??-->
+      <xs:element maxOccurs="1" minOccurs="1" name="avtalenummer" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProduktForespoersel">
+    <xs:sequence>
+      <!--enum-->
+      <xs:element maxOccurs="1" minOccurs="1" name="produkt" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="kundeId" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="beskrivelse" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="betingelser" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8090/soap-api/fagsystem/v1/fagsystem</con:endpoint></con:endpoints><con:operation id="033ea322-ab89-49ab-ae64-a058f775d4d5" isOneWay="false" action="urn:com:horntvedt:case2:fagsystem:kunde:v1/registrerKunde" name="registrerKunde" bindingOperationName="registrerKunde" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0d802214-9fbe-4334-bf26-a23808d09b1c" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8090/soap-api/fagsystem/v1/fagsystem</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:com:horntvedt:case2:fagsystem:kunde:v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:kundeForespoersel>
+         <kundeInfo>
+            <!--You have a CHOICE of the next 2 items at this level-->
+            <foedselsnummer>07034701985</foedselsnummer>            
+            <fornavn>Kristian</fornavn>            
+            <mellomnavn/>
+            <etternavn>Horntvedt</etternavn>
+            <adresselinje1>Gateveien 123</adresselinje1>
+            <adresselinje2>Gateveien 123</adresselinje2>
+            <postnummer>0658</postnummer>
+            <poststed>Vålerenga!</poststed>
+         </kundeInfo>
+      </urn:kundeForespoersel>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:com:horntvedt:case2:fagsystem:kunde:v1/registrerKunde"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="ee624fdc-1977-4d62-b84f-9933fe65a28f" isOneWay="false" action="urn:com:horntvedt:case2:fagsystem:produkt:v1/registrerProdukt" name="registrerProdukt" bindingOperationName="registrerProdukt" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f0583591-9487-4eae-9b57-16b8347e32b7" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8090/soap-api/fagsystem/v1/fagsystem</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:com:horntvedt:case2:fagsystem:produkt:v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:produktForespoersel>
+         <produkt>bil</produkt>
+         <kundeId>50659f15-0348-4122-be77-0d27b76df5f5</kundeId>         
+         <beskrivelse>dårling kunde</beskrivelse>         
+         <betingelser>dyrt</betingelser>
+      </urn:produktForespoersel>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:com:horntvedt:case2:fagsystem:produkt:v1/registrerProdukt"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

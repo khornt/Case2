@@ -12,14 +12,13 @@
 
   <xs:complexType name="KundeRespons">
     <xs:sequence>
-      <xs:element name="svar" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="kundeId" type="xs:string" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="KundeForespoersel">
     <xs:sequence>
       <xs:element name="kundeInfo" type="felles:Aktor" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="annetfelt" type="xs:string" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 
